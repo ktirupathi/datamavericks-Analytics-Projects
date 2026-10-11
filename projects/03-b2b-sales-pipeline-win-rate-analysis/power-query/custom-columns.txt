@@ -1,0 +1,11 @@
+// B2B Sales Pipeline & Win-Rate Analysis
+// Power Query custom columns: Add Column → Custom Column.
+// Left of '=' is the column name; right of '=' is the formula to paste.
+
+Is Closed         = if [deal_stage] = "Won" or [deal_stage] = "Lost" then 1 else 0
+Is Won            = if [deal_stage] = "Won" then 1 else 0
+Is Open           = if [deal_stage] = "Prospecting" or [deal_stage] = "Engaging" then 1 else 0
+Cycle Days        = if [Is Closed] = 1 then Duration.Days([close_date] - [engage_date]) else null
+Price Realisation = if [deal_stage] = "Won" then [close_value] / [sales_price] else null
+Close Quarter     = if [close_date] = null then null
+                    else Text.From(Date.Year([close_date])) & "-Q" & Text.From(Date.QuarterOfYear([close_date]))

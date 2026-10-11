@@ -1,0 +1,13 @@
+// B2B Sales Pipeline & Win-Rate Analysis
+// Power BI DAX — create each line as a New measure (or New column where noted in README.md).
+
+Deals Count = COUNTROWS ( Deals )
+Won = CALCULATE ( [Deals Count], Deals[deal_stage] = "Won" )
+Closed = CALCULATE ( [Deals Count], Deals[deal_stage] IN { "Won", "Lost" } )
+Win Rate = DIVIDE ( [Won], [Closed] )
+Revenue = SUM ( Deals[close_value] )
+Avg Deal Size = DIVIDE ( [Revenue], [Won] )
+Avg Cycle Days = CALCULATE ( AVERAGE ( Deals[Cycle Days] ), Deals[Is Closed] = 1 )
+Avg Price Realisation = AVERAGE ( Deals[Price Realisation] )
+Open Pipeline Value = CALCULATE ( SUM ( Deals[sales_price] ), Deals[deal_stage] = "Engaging" )
+Expected Pipeline = [Open Pipeline Value] * CALCULATE ( [Win Rate], ALL ( Deals ) ) * CALCULATE ( [Avg Price Realisation], ALL ( Deals ) )

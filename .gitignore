@@ -1,0 +1,13 @@
+# Datasets — download from the source, never commit
+data/
+*.csv
+*.csv.gz
+*.zip
+*.parquet
+
+# Office temp files
+~$*
+
+# OS
+.DS_Store
+Thumbs.db

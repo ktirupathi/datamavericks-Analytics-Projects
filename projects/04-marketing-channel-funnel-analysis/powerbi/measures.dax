@@ -1,0 +1,9 @@
+// Marketing Channel Attribution & Conversion Funnel Analysis
+// Power BI DAX — create each line as a New measure (or New column where noted in README.md).
+
+Sessions = SUM ( Daily[sessions] )
+Orders = SUM ( Daily[orders] )
+Conversion Rate = DIVIDE ( [Orders], [Sessions] )
+Revenue = SUM ( Daily[revenue] )
+Revenue per Session = DIVIDE ( [Revenue], [Sessions] )
+Margin per Session = DIVIDE ( [Revenue] - SUM ( Daily[cogs] ), [Sessions] )

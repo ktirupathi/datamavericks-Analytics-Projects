@@ -1,0 +1,9 @@
+// Hotel Booking Cancellation & Revenue Risk Analysis
+// Power Query custom columns: Add Column → Custom Column.
+// Left of '=' is the column name; right of '=' is the formula to paste.
+
+month_num      = Date.Month(Date.FromText("1 " & [arrival_date_month] & " 2000"))
+arrival_date   = #date([arrival_date_year], [month_num], [arrival_date_day_of_month])
+total_nights   = [stays_in_weekend_nights] + [stays_in_week_nights]
+total_guests   = [adults] + [children] + [babies]
+booking_value  = [adr] * [total_nights]

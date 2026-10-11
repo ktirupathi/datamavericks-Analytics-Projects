@@ -1,0 +1,15 @@
+// E-commerce Delivery Performance & Customer Retention Analysis
+// Power BI DAX — create each line as a New measure (or New column where noted in README.md).
+
+Delivery Bucket =
+SWITCH ( TRUE (),
+    order_facts[days_late] <= 0, "1. On time",
+    order_facts[days_late] <= 3, "2. 1–3 days late",
+    order_facts[days_late] <= 7, "3. 4–7 days late",
+    "4. 8+ days late" )
+
+Orders = COUNTROWS ( order_facts )
+Late % = AVERAGE ( order_facts[is_late] )
+Avg Review = AVERAGE ( order_facts[review_score] )
+Bad Review % = DIVIDE ( CALCULATE ( [Orders], order_facts[review_score] <= 2 ), CALCULATE ( [Orders], NOT ISBLANK ( order_facts[review_score] ) ) )
+Avg Delivery Days = AVERAGE ( order_facts[delivery_days] )

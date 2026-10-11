@@ -1,0 +1,10 @@
+// Hotel Booking Cancellation & Revenue Risk Analysis
+// Power BI DAX — create each line as a New measure (or New column where noted in README.md).
+
+Bookings Count = COUNTROWS ( Bookings )
+Cancel Rate = AVERAGE ( Bookings[is_canceled] )
+Booked Value = SUM ( Bookings[booking_value] )
+Value at Risk = CALCULATE ( [Booked Value], Bookings[is_canceled] = 1 )
+Realised Value = CALCULATE ( [Booked Value], Bookings[is_canceled] = 0 )
+Risk Share = DIVIDE ( [Value at Risk], [Booked Value] )
+Avg ADR = AVERAGE ( Bookings[adr] )

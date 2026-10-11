@@ -1,0 +1,11 @@
+// Credit Card Customer Churn Analysis
+// Power BI DAX — create each line as a New measure (or New column where noted in README.md).
+
+Customers = COUNTROWS ( Cust )
+Leavers = SUM ( Cust[churned] )
+Churn Rate = DIVIDE ( [Leavers], [Customers] )
+Flagged = CALCULATE ( [Customers], FILTER ( Cust, Cust[txn_count] < [Txn Threshold Value] && Cust[txn_count_change] < [Change Threshold Value] ) )
+Flagged Leavers = CALCULATE ( [Leavers], FILTER ( Cust, Cust[txn_count] < [Txn Threshold Value] && Cust[txn_count_change] < [Change Threshold Value] ) )
+Coverage = DIVIDE ( [Flagged Leavers], [Leavers] )
+Precision = DIVIDE ( [Flagged Leavers], [Flagged] )
+Call List = [Flagged] - [Flagged Leavers]
